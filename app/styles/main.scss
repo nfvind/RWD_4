@@ -1,0 +1,55 @@
+$pageSize: 960px;
+$main:940px;
+$mainCmnSize: 800px;
+$rightCmn:120px;
+$columnColor:seashell;
+
+@mixin columnCalc($wdth, $parent,$gutter:true) {
+  $theWidth: $wdth / $parent;
+  $sidespc: (100 - ($theWidth * 100))/2;
+  width: percentage($theWidth);
+  box-sizing: border-box;
+  @if($gutter){
+    margin:{
+      left:percentage($sidespc/100);
+      right:percentage($sidespc/100);
+      top:percentage($sidespc/100);
+      bottom:percentage($sidespc/100);
+    }
+  }
+}
+
+body {
+  width:100%;
+}
+
+.page {
+  margin: 0 auto;
+  background-color: mediumpurple;
+  width: 100% ;
+  height:500px;
+  padding-top: 10px;
+  .top {
+    @include columnCalc($main, $pageSize);
+    height:50px;
+    background-color: seashell;
+  }
+  .main {
+    @include columnCalc($main, $pageSize, true);
+    overflow: hidden;
+    background-color: mediumslateblue;
+    .main-column {
+      @include columnCalc($mainCmnSize, $main, false);
+      float:left;
+      height:300px;
+      background-color:$columnColor;
+    }
+
+    .right-column {
+      @include columnCalc($rightCmn, $main, false);
+      float:right;
+      height:300px;
+      background-color:$columnColor;
+    }
+  }
+}
